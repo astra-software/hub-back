@@ -1,0 +1,10 @@
+# ao abrir uma pr em direção a hom, o workflow vai testar o codigo que originou a pr
+name: PR to homologation environment
+on:
+  pull_request:
+    types: opened
+    branches: 
+        - hom
+jobs:
+    tbd:
+        runs-on: ubuntu-latest

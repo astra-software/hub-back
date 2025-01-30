@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: ${POSTGRE_URL_PROD}
+    username: ${POSTGRE_USER_PROD}
+    password: ${POSTGRE_PASSWORD_PROD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
+  sql:
+    init:
+      mode: always

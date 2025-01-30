@@ -1,0 +1,10 @@
+# ao abrir uma pr com direção a dev, o workflow vai testar o codigo que originou a pr 
+name: PR to dev environment
+on:
+  pull_request:
+    types: opened
+    branches: 
+        - dev
+jobs:
+    tbd:
+        runs-on: ubuntu-latest
