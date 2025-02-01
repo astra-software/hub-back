@@ -6,6 +6,6 @@ spring:
 security:
   jwt:
     token:
-      secret-key: ${JWT-SECRET-KEY}
-      expire-length: ${JWT-EXPIRE-LENGTH}
+      secret-key: ${JWT_SECRET_KEY}
+      expire-length: ${JWT_EXPIRE_LENGTH}
       
