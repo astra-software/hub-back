@@ -12,10 +12,10 @@ jobs:
     if: github.event.pull_request.base.ref == 'dev'
     steps:
       - name: Run development environment tests
-        uses: ./.github/workflows/test-dev.yml
+        uses: .github/workflows/test-dev.yml
   run-hom:
     runs-on: ubuntu-latest
     if: github.event.pull_request.base.ref == 'hom'
     steps:
       - name: Run homologation environment tests
-        uses: ./.github/workflows/test-hom.yml
+        uses: .github/workflows/test-hom.yml
