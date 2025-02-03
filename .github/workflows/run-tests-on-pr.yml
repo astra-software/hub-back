@@ -1,39 +1,21 @@
 # finalidade: rodar testes quando uma pr for aberta em direção a hom ou dev
-name: Run tests on pull request to HOM and DEV
+name: Run tests bases on environment
 on:
   pull_request:
     types: opened
-    branches: 
-        - dev
-        - hom
+    branches:
+      - hom
+      - dev
 jobs:
-    test:
-        runs-on: ubuntu-latest
-        steps:
-          - name: Checkout repo
-            uses: actions/checkout@v4
-          - name: Configure JDK
-            uses: actions/setup-java@v4
-            with:
-              java-version: "21"
-              distribution: "temurin"
-          - name : Cache
-            uses: actions/cache@v4
-            with:
-              path: ~/.m2
-              key: maven-${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
-              restore-keys: |
-                maven-${{ runner.os }}
-          - name: Test application on dev environment
-            if: github.base_ref == 'dev'
-            run: mvn clean test
-          - name: Define env vars if homologation environment
-            if: github.base_ref == 'hom'
-            env:
-              POSTGRE_URL_HOM: ${{ secrets.POSTGRE_URL_HOM }}
-              POSTGRE_USER_HOM: ${{ secrets.POSTGRE_USER_HOM }}
-              POSTGRE_PASSWORD_HOM: ${{ secrets.POSTGRE_PASSWORD_HOM }}
-            run: echo "Env vars defined."
-          - name: Test application on homologation environment
-            if: github.base_ref == 'hom'
-            run: mvn clean test -Dspring.profiles.active=hom
+  run-dev:
+    # runs-on: ubuntu-latest
+    if: github.event.pull_request.base.ref == 'dev'
+    uses: astra-software/hub-back/.github/workflows/test-dev.yml@main
+    # steps:
+    #   - name: Run development environment tests
+  run-hom:
+    # runs-on: ubuntu-latest
+    if: github.event.pull_request.base.ref == 'hom'
+    uses: astra-software/hub-back/.github/workflows/test-hom.yml@main
+    # steps:
+    #   - name: Run homologation environment tests
