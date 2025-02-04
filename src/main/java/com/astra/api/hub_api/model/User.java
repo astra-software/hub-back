@@ -49,7 +49,6 @@ public class User implements UserDetails {
 
     @Column
     private boolean banned = false;
-    
 
     @Column(name = "account_non_expired")
     private boolean accountNonExpired = true;
@@ -65,7 +64,7 @@ public class User implements UserDetails {
                 joinColumns = {@JoinColumn(name = "id_user")},
                 inverseJoinColumns = {@JoinColumn(name = "id_permission")})
     private List<Permission> permissions = new ArrayList<>();
-
+    
     //@Column(name = "favorite_projects")
     //private List<Project> favoriteProjects;
 
