@@ -36,6 +36,6 @@ public class DocumentationTopic {
     @Column
     private String title;
 
-    @OneToMany(mappedBy = "documentation_topic", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "topic", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
     private List<DocumentationPage> pages = new ArrayList<>();
 }

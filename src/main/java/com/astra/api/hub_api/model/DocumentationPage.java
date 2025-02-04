@@ -31,7 +31,7 @@ public class DocumentationPage{
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "topic_id")
-    private DocumentationTopic documentationTopic;
+    private DocumentationTopic topic;
 
     private String title;
     
