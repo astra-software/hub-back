@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -14,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -46,7 +48,8 @@ public class Article{
     @Column(name = "favourite_counter")
     private Long favouriteCounter;
 
-    //private List<Feedback> feedbacks;
+    @OneToMany(mappedBy = "article", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<Feedback> feedbacks;
 
     @Column
     private LocalDateTime timestamp;
@@ -56,6 +59,5 @@ public class Article{
                 joinColumns = {@JoinColumn(name = "id_article")},
                 inverseJoinColumns = {@JoinColumn(name = "id_category")})
     private List<Category> categories = new ArrayList<>();
-
 
 }
