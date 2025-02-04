@@ -7,7 +7,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDateTime;
-// import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -23,11 +22,10 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import com.astra.api.hub_api.emodel.FeedbackType;
 import com.astra.api.hub_api.emodel.StructureDenominator;
 import com.astra.api.hub_api.model.Feedback;
-// import com.astra.api.hub_api.model.FeedbackLabel;
-// import com.astra.api.hub_api.model.Permission;
+import com.astra.api.hub_api.model.FeedbackLabel;
 import com.astra.api.hub_api.model.User;
+import com.astra.api.hub_api.repository.FeedbackLabelRepository;
 import com.astra.api.hub_api.repository.FeedbackRepository;
-// import com.astra.api.hub_api.repository.PermissionRepository;
 import com.astra.api.hub_api.repository.UserRepository;
 
 
@@ -59,10 +57,11 @@ public class DatabaseSchemaTest {
 
     @Autowired
     private UserRepository userRepository;
-    
-    // @Autowired
-    // private PermissionRepository permissionRepository;
 
+    @Autowired
+    private FeedbackLabelRepository labelRepository;
+
+    // [F]: Métodos que avaliam se as tabelas estão sendo criadas corretamente
     @Test
     void testFeedbackTableExists() throws Exception{
         try (Connection connection = dataSource.getConnection();
@@ -94,16 +93,25 @@ public class DatabaseSchemaTest {
         }
     }
 
+    // [F]: Métodos que avaliam relacionamentos
     @Test
-    void testUserFeedbackRelationship(){
+    void testUserFeedbackAndLabelRelationship(){
         User user = new User();
         user.setUserName("test");
         User savedUser = userRepository.save(user);
+
+        FeedbackLabel label = new FeedbackLabel();
+        label.setLabel("test");
+        label.setStructureDenominator(StructureDenominator.ARTICLE);
+        label.setType(FeedbackType.POSITIVE);
+        
+        FeedbackLabel savedLabel = labelRepository.save(label);
 
         Feedback feedback = new Feedback();
         feedback.setUser(savedUser);
         feedback.setStructureDenominator(StructureDenominator.ARTICLE);
         feedback.setType(FeedbackType.POSITIVE);
+        (feedback.getLabels()).add(savedLabel);
         feedback.setContent("test");
         feedback.setTimestamp(LocalDateTime.now());
 
@@ -111,7 +119,11 @@ public class DatabaseSchemaTest {
         User searchUserRepo = userRepository.findById(savedUser.getId()).orElseThrow();
         
         assertThat(feedbackRepository.findAll()).hasSize(1);
+        assertThat(labelRepository.findAll()).hasSize(1);
         assertThat(searchUserRepo.getFeedbacks()).hasSize(1);
+        assertThat(savedFeedback.getLabels()).hasSize(1);
         assertTrue(searchUserRepo.getFeedbacks().getFirst().getContent().equals(savedFeedback.getContent()));
+        assertTrue(savedFeedback.getLabels().getFirst().getLabel().equals(savedLabel.getLabel()));
     }
+
 }
