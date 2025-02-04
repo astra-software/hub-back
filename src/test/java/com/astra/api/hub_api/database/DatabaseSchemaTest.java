@@ -42,12 +42,31 @@ public class DatabaseSchemaTest {
     private DataSource dataSource;
 
     @Test
-    void testUserTableExists() throws Exception{
+    void testFeedbackTableExists() throws Exception{
         try (Connection connection = dataSource.getConnection();
              Statement stmt = connection.createStatement();
              ResultSet rs = stmt.executeQuery(
                      "SELECT table_name FROM information_schema.tables WHERE table_name = 'feedback'")) {
             assertTrue(rs.next(), "Tabela 'feedback' deveria existir.");
+        }
+    }
+
+    @Test
+    void testFeedbackLabelTableExists() throws Exception{
+        try (Connection connection = dataSource.getConnection();
+             Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(
+                     "SELECT table_name FROM information_schema.tables WHERE table_name = 'feedback_label'")) {
+            assertTrue(rs.next(), "Tabela 'feedback_label' deveria existir.");
+        }
+    }
+    @Test
+    void testFeedbackLabelLinkTableExists() throws Exception{
+        try (Connection connection = dataSource.getConnection();
+             Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(
+                     "SELECT table_name FROM information_schema.tables WHERE table_name = 'feedback_label_link'")) {
+            assertTrue(rs.next(), "Tabela 'feedback_label_link' deveria existir.");
         }
     }
 
