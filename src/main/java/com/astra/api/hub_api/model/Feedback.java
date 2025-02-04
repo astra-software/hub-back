@@ -1,6 +1,7 @@
 package com.astra.api.hub_api.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.astra.api.hub_api.emodel.FeedbackType;
@@ -32,7 +33,7 @@ public class Feedback  {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -51,7 +52,7 @@ public class Feedback  {
     @JoinTable(name = "feedback_label_link",
                 joinColumns = {@JoinColumn(name = "id_feedback")},
                 inverseJoinColumns = {@JoinColumn(name = "id_label")})
-    private List<FeedbackLabel> labels;
+    private List<FeedbackLabel> labels = new ArrayList<>();
 
     @Column(nullable = false)
     private FeedbackType type;
