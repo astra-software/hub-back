@@ -71,14 +71,16 @@ public class User implements UserDetails {
     // private List<Project> favoriteProjects = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL )
-    private List<Article> favoriteArticles = new ArrayList<>();
+    private List<Article> articles = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL )
     private List<DocumentationTopic> topics = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL )
     private List<DocumentationPage> pages = new ArrayList<>();
-
+    
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL )
+    private List<Category> categories = new ArrayList<>();
     
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
