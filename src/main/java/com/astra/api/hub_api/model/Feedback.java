@@ -1,10 +1,5 @@
 package com.astra.api.hub_api.model;
 
-import java.util.List;
-
-import com.astra.api.hub_api.emodel.StructureDenominator;
-
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -21,9 +16,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "category")
-public class Category{
-  
+@Table(name = "feedback")
+public class Feedback {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,12 +26,5 @@ public class Category{
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(name = "structure_denominator")
-    private StructureDenominator structureDenominator;
-
-    @Column
-    private String label;
-
-    @Column
-    private List<String> type;
+    
 }
