@@ -35,4 +35,4 @@ jobs:
                 restore-keys: |
                     maven-${{ runner.os }}
             - name: Install dependencies and test
-              run: mvn clean test -Dspring.profiles.active=dev
+              run: mvn clean test -X
