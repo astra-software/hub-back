@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -16,6 +17,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -64,18 +66,19 @@ public class User implements UserDetails {
                 joinColumns = {@JoinColumn(name = "id_user")},
                 inverseJoinColumns = {@JoinColumn(name = "id_permission")})
     private List<Permission> permissions = new ArrayList<>();
-    
-    //@Column(name = "favorite_projects")
-    //private List<Project> favoriteProjects;
 
-    //@Column(name = "favorite_articles")
-    //private List<Article> favoriteArticles;
+    // @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL )
+    // private List<Project> favoriteProjects = new ArrayList<>();
 
-    //@Column
-    //private List<Article> articles;
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL )
+    private List<Article> favoriteArticles = new ArrayList<>();
 
-    //@Column
-    //private List<Project> projects;
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL )
+    private List<DocumentationTopic> topics = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL )
+    private List<DocumentationPage> pages = new ArrayList<>();
+
     
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

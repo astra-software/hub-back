@@ -1,7 +1,8 @@
 package com.astra.api.hub_api.model;
 
-
 import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -18,24 +19,35 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "documentation_page")
-public class DocumentationPage{
+@Table(name = "article")
+public class Article{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "topic_id")
-    private DocumentationTopic documentationTopic;
-
+    @Column
     private String title;
-    
+
+    @Column(name="markdown_content")
     private String markdownContent;
 
-    private LocalDateTime timestamp;   
+    //private List<Category> categories;
+
+    @Column(name = "is_private")
+    private boolean isPrivate = false;
+
+    @Column(name = "favourite_counter")
+    private Long favouriteCounter;
+
+    //private List<Feedback> feedbacks;
+
+    @Column
+    private LocalDateTime timestamp;
+
+
 }
