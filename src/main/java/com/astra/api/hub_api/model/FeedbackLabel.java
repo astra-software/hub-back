@@ -1,17 +1,13 @@
 package com.astra.api.hub_api.model;
 
-import java.util.List;
-
+import com.astra.api.hub_api.emodel.FeedbackType;
 import com.astra.api.hub_api.emodel.StructureDenominator;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,23 +17,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "category")
-public class Category{
-  
+@Table(name = "feedback_label")
+public class FeedbackLabel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @Column(name = "structure_denominator")
+    @Column(name = "structure_denominator", nullable = false)
     private StructureDenominator structureDenominator;
 
-    @Column
-    private String label;
+    @Column(nullable = false)
+    private FeedbackType type;
 
-    @Column
-    private List<String> type;
+    @Column(nullable = false)
+    private String label;
 }

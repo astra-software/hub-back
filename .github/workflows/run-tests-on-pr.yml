@@ -8,14 +8,8 @@ on:
       - dev
 jobs:
   run-dev:
-    # runs-on: ubuntu-latest
     if: github.event.pull_request.base.ref == 'dev'
     uses: astra-software/hub-back/.github/workflows/test-dev.yml@main
-    # steps:
-    #   - name: Run development environment tests
   run-hom:
-    # runs-on: ubuntu-latest
     if: github.event.pull_request.base.ref == 'hom'
     uses: astra-software/hub-back/.github/workflows/test-hom.yml@main
-    # steps:
-    #   - name: Run homologation environment tests
