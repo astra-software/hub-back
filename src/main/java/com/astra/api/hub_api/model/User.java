@@ -61,14 +61,16 @@ public class User implements UserDetails {
     @Column(name = "credentials_non_expired")
     private boolean credentialsNonExpired = true;
 
+    private List<Project> favoriteProjects = new ArrayList<>();
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_permission_link",
                 joinColumns = {@JoinColumn(name = "id_user")},
                 inverseJoinColumns = {@JoinColumn(name = "id_permission")})
     private List<Permission> permissions = new ArrayList<>();
 
-    // @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL )
-    // private List<Project> favoriteProjects = new ArrayList<>();
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL )
+    private List<Project> projects = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL )
     private List<Article> articles = new ArrayList<>();
