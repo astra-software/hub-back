@@ -62,6 +62,12 @@ public class User implements UserDetails {
     private boolean credentialsNonExpired = true;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_favorite_articles",
+                joinColumns = {@JoinColumn(name = "id_user")},
+                inverseJoinColumns = {@JoinColumn(name = "id_article")})
+    private List<Article> favoriteArticles = new ArrayList<>();
+    
+                @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_favorite_projects",
                 joinColumns = {@JoinColumn(name = "id_user")},
                 inverseJoinColumns = {@JoinColumn(name = "id_project")})
