@@ -41,11 +41,10 @@ public class Feedback  {
     @JoinColumn(name = "article_id")
     private Article article;
     
-    // @ManyToOne(fetch = FetchType.EAGER)
-    // @JoinColumn(name = "project_id")
-    // private Project project;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "project_id")
+    private Project project;
 
-    
     @Column(name = "structure_denominator", nullable = false)
     private StructureDenominator structureDenominator;
 

@@ -57,7 +57,8 @@ public class Project {
               inverseJoinColumns = {@JoinColumn(name = "id_category")})
   private List<Category> categories = new ArrayList<>();
 
-  //private List<Feedback> feedbacks;
+  @OneToMany(mappedBy = "project", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL )
+  private List<Feedback> feedbacks;
 
   @Column(name = "favourite_counter")
   private Long favouriteCounter;
