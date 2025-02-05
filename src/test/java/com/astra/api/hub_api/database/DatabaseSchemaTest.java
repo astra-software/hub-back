@@ -93,6 +93,16 @@ public class DatabaseSchemaTest {
         }
     }
 
+    @Test
+    void testUserFavoriteProjectsTableExists() throws Exception{
+        try (Connection connection = dataSource.getConnection();
+             Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(
+                     "SELECT table_name FROM information_schema.tables WHERE table_name = 'user_favorite_projects'")) {
+            assertTrue(rs.next(), "Tabela 'user_favorite_projects' deveria existir.");
+        }
+    }
+
     // [F]: Métodos que avaliam relacionamentos
     @Test
     void testUserFeedbackAndLabelRelationship(){
