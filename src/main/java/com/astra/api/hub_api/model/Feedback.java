@@ -9,6 +9,8 @@ import com.astra.api.hub_api.emodel.StructureDenominator;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -46,6 +48,7 @@ public class Feedback  {
     private Project project;
 
     @Column(name = "structure_denominator", nullable = false)
+    @Enumerated(EnumType.STRING)
     private StructureDenominator structureDenominator;
 
     @NotEmpty
@@ -55,6 +58,7 @@ public class Feedback  {
                 inverseJoinColumns = {@JoinColumn(name = "id_label")})
     private List<FeedbackLabel> labels = new ArrayList<>();
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private FeedbackType type;
 

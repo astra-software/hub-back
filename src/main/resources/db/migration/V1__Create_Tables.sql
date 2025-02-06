@@ -114,9 +114,9 @@ CREATE TABLE IF NOT EXISTS feedback (
 );
 
 CREATE TABLE IF NOT EXISTS feedback_label_link (
-    id_project BIGINT NOT NULL,
+    id_feedback BIGINT NOT NULL,
     id_label BIGINT NOT NULL,
-    FOREIGN KEY(id_project) REFERENCES project(id) ON DELETE CASCADE,
+    FOREIGN KEY(id_feedback) REFERENCES feedback(id) ON DELETE CASCADE,
     FOREIGN KEY(id_label) REFERENCES feedback_label(id) ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS image (

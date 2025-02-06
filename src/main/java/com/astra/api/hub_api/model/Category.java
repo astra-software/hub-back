@@ -6,6 +6,8 @@ import com.astra.api.hub_api.emodel.StructureDenominator;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,6 +28,7 @@ public class Category{
     private Long id;
 
     @Column(name = "structure_denominator")
+    @Enumerated(EnumType.STRING)
     private StructureDenominator structureDenominator;
 
     @Column

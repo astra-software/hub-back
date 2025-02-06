@@ -56,6 +56,8 @@ public class DatabaseRelationshipTest {
     void testUserFeedbackAndLabelRelationship(){
         User user = new User();
         user.setUserName("test");
+        user.setEmail("test@test.com");
+        user.setPassword("test");
         User savedUser = userRepository.save(user);
 
         FeedbackLabel label = new FeedbackLabel();
