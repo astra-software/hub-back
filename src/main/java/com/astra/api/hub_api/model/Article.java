@@ -51,6 +51,9 @@ public class Article{
     @OneToMany(mappedBy = "article", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Feedback> feedbacks;
 
+    @OneToMany(mappedBy = "article",  fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<Image> imageList;
+
     @Column
     private LocalDateTime timestamp;
 

@@ -33,20 +33,17 @@ public class Project {
   private Long id;
 
   @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "user_id")
+  @JoinColumn(name = "user_id", nullable = false)
   private User user;
 
-  @Column
-  private List<User> authors;
-
-  @Column
+  @Column(nullable = false)
   private String title;
 
-  @Column
+  @Column(nullable = false)
   private String description;
 
-  @Column(name = "image_list")
-  private List<String> imageList;
+  @OneToMany(mappedBy = "project",  fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
+  private List<Image> imageList;
 
   @OneToMany(mappedBy = "project", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL )
   private List<Util> utils;
