@@ -90,6 +90,114 @@ public class DatabaseSchemaTest {
             assertTrue(rs.next(), "Tabela 'user_favorite_articles' deveria existir.");
         }
     }
+    @Test
+    void testArticlesTableExists() throws Exception{
+        try (Connection connection = dataSource.getConnection();
+             Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(
+                     "SELECT table_name FROM information_schema.tables WHERE table_name = 'article'")) {
+            assertTrue(rs.next(), "Tabela 'article' deveria existir.");
+        }
+    }
+    @Test
+    void testProjectsTableExists() throws Exception{
+        try (Connection connection = dataSource.getConnection();
+             Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(
+                     "SELECT table_name FROM information_schema.tables WHERE table_name = 'project'")) {
+            assertTrue(rs.next(), "Tabela 'project' deveria existir.");
+        }
+    }
+    @Test
+    void testImagesTableExists() throws Exception{
+        try (Connection connection = dataSource.getConnection();
+             Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(
+                     "SELECT table_name FROM information_schema.tables WHERE table_name = 'image'")) {
+            assertTrue(rs.next(), "Tabela 'image' deveria existir.");
+        }
+    }
+    @Test
+    void testUsersTableExists() throws Exception{
+        try (Connection connection = dataSource.getConnection();
+             Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(
+                     "SELECT table_name FROM information_schema.tables WHERE table_name = 'users'")) {
+            assertTrue(rs.next(), "Tabela 'users' deveria existir.");
+        }
+    }
+    @Test
+    void testPermissionTableExists() throws Exception{
+        try (Connection connection = dataSource.getConnection();
+             Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(
+                     "SELECT table_name FROM information_schema.tables WHERE table_name = 'permission'")) {
+            assertTrue(rs.next(), "Tabela 'permission' deveria existir.");
+        }
+    }
+    @Test
+    void testUserPermissionsTableExists() throws Exception{
+        try (Connection connection = dataSource.getConnection();
+             Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(
+                     "SELECT table_name FROM information_schema.tables WHERE table_name = 'user_permission_link'")) {
+            assertTrue(rs.next(), "Tabela 'user_permission_link' deveria existir.");
+        }
+    }
+    @Test
+    void testUtilsTableExists() throws Exception{
+        try (Connection connection = dataSource.getConnection();
+             Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(
+                     "SELECT table_name FROM information_schema.tables WHERE table_name = 'util'")) {
+            assertTrue(rs.next(), "Tabela 'util' deveria existir.");
+        }
+    }
+    @Test
+    void testDocumentationPageTableExists() throws Exception{
+        try (Connection connection = dataSource.getConnection();
+             Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(
+                     "SELECT table_name FROM information_schema.tables WHERE table_name = 'documentation_page'")) {
+            assertTrue(rs.next(), "Tabela 'documentation_page' deveria existir.");
+        }
+    }
+    @Test
+    void testDocumentationTopicTableExists() throws Exception{
+        try (Connection connection = dataSource.getConnection();
+             Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(
+                     "SELECT table_name FROM information_schema.tables WHERE table_name = 'documentation_topic'")) {
+            assertTrue(rs.next(), "Tabela 'documentation_topic' deveria existir.");
+        }
+    }
+    @Test
+    void testCategoriesTableExists() throws Exception{
+        try (Connection connection = dataSource.getConnection();
+             Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(
+                     "SELECT table_name FROM information_schema.tables WHERE table_name = 'category'")) {
+            assertTrue(rs.next(), "Tabela 'category' deveria existir.");
+        }
+    }
+    @Test
+    void testArticleCategoriesLinkTableExists() throws Exception{
+        try (Connection connection = dataSource.getConnection();
+             Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(
+                     "SELECT table_name FROM information_schema.tables WHERE table_name = 'article_category_link'")) {
+            assertTrue(rs.next(), "Tabela 'article_category_link' deveria existir.");
+        }
+    }
+    @Test
+    void testProjectCategoriesLinkTableExists() throws Exception{
+        try (Connection connection = dataSource.getConnection();
+             Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(
+                     "SELECT table_name FROM information_schema.tables WHERE table_name = 'project_category_link'")) {
+            assertTrue(rs.next(), "Tabela 'project_category_link' deveria existir.");
+        }
+    }
 
     
 
