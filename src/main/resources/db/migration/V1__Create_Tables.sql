@@ -25,3 +25,17 @@ CREATE TABLE IF NOT EXISTS user_permission_link (
 );
 
 CREATE INDEX idx_user_permission_permission ON user_permission_link (id_permission);
+
+DO $$ 
+BEGIN 
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'structure_denominator') THEN
+        CREATE TYPE structure_denominator AS ENUM ('ARTICLE', 'PROJECT'); 
+    END IF;
+END $$;
+
+CREATE TABLE IF NOT EXISTS category (
+    id BIGSERIAL PRIMARY KEY,
+    structure_denominator structure_denominator NOT NULL,
+    label VARCHAR(255),
+    "type" TEXT[]
+);

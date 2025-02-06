@@ -28,7 +28,7 @@ public class Util {
   private String title;
 
   @Column
-  private String content;
+  private String url;
 
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "project_id")
