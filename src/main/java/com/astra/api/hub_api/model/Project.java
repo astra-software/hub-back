@@ -39,7 +39,7 @@ public class Project {
   @Column(nullable = false)
   private String title;
 
-  @Column(nullable = false)
+  @Column
   private String description;
 
   @OneToMany(mappedBy = "project",  fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
@@ -57,8 +57,8 @@ public class Project {
   @OneToMany(mappedBy = "project", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL )
   private List<Feedback> feedbacks;
 
-  @Column(name = "favourite_counter")
-  private Long favouriteCounter;
+  @Column(name = "favorite_counter")
+  private Long favoriteCounter;
 
   @Column
   private LocalDateTime timestamp;

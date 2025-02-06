@@ -30,10 +30,10 @@ public class DocumentationTopic {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column
+    @Column(nullable = false)
     private String title;
 
     @OneToMany(mappedBy = "topic", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)

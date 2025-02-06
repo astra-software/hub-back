@@ -36,17 +36,17 @@ public class Article{
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column
+    @Column(nullable = false)
     private String title;
 
-    @Column(name="markdown_content")
+    @Column(name="markdown_content", nullable = false)
     private String markdownContent;
 
     @Column(name = "is_private")
     private boolean isPrivate = false;
 
-    @Column(name = "favourite_counter")
-    private Long favouriteCounter;
+    @Column(name = "favorite_counter")
+    private Long favoriteCounter;
 
     @OneToMany(mappedBy = "article", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Feedback> feedbacks;
@@ -54,7 +54,7 @@ public class Article{
     @OneToMany(mappedBy = "article",  fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Image> imageList;
 
-    @Column
+    @Column(nullable = false)
     private LocalDateTime timestamp;
 
     @ManyToMany(fetch = FetchType.EAGER)
