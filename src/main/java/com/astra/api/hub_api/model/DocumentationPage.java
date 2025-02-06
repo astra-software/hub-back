@@ -2,6 +2,8 @@ package com.astra.api.hub_api.model;
 
 
 import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -26,16 +28,19 @@ public class DocumentationPage{
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "topic_id")
+    @JoinColumn(name = "topic_id", nullable = false)
     private DocumentationTopic topic;
 
+    @Column(nullable = false)
     private String title;
-    
+
+    @Column(name = "markdown_content", nullable = false)
     private String markdownContent;
 
+    @Column(nullable = false)
     private LocalDateTime timestamp;   
 }

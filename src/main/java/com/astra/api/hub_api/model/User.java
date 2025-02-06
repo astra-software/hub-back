@@ -37,13 +37,13 @@ public class User implements UserDetails {
     @Column(name = "profile_picture")
     private String profilePicture;
 
-    @Column(name = "user_name")
+    @Column(name = "user_name", nullable = false, length = 32, unique = true)
     private String userName;
 
-    @Column
+    @Column(nullable = false, length = 180, unique = true)
     private String email;
     
-    @Column
+    @Column(nullable = false, length = 64)
     private String password;
 
     @Column
@@ -90,9 +90,6 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL )
     private List<DocumentationPage> pages = new ArrayList<>();
-    
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL )
-    private List<Category> categories = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL )
     private List<Feedback> feedbacks = new ArrayList<>();

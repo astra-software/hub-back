@@ -24,14 +24,14 @@ public class Util {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column
+  @Column(nullable = false)
   private String title;
 
-  @Column
-  private String content;
+  @Column(nullable = false)
+  private String url;
 
   @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "project_id")
+  @JoinColumn(name = "project_id", nullable = false)
   private Project project;
   
 
