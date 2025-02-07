@@ -25,8 +25,10 @@ public class EventLogging {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Column
   private Long structuredId;
 
+  @Column
   private Long userId;
 
   @Column(name = "logging_denominator")
