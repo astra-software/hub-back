@@ -12,7 +12,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,7 +29,7 @@ public class Message {
   private Long id;
 
   @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "chat_id")
+  @JoinColumn(name = "chat_id", referencedColumnName = "id", columnDefinition = "VARCHAR(255)")
   private Chat chat;
 
   @ManyToOne(fetch = FetchType.EAGER)

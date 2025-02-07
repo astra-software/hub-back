@@ -18,7 +18,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -95,14 +94,8 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL )
     private List<Feedback> feedbacks = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL )
+    @OneToMany(mappedBy = "senderUser", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL )
     private List<Chat> chats = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL )
-    private List<Message> receivedMessages = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL )
-    private List<Message> sentMessages = new ArrayList<>();;
         
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
