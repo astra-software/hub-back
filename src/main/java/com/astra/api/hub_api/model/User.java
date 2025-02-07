@@ -18,6 +18,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -67,7 +68,7 @@ public class User implements UserDetails {
                 inverseJoinColumns = {@JoinColumn(name = "id_article")})
     private List<Article> favoriteArticles = new ArrayList<>();
     
-                @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_favorite_projects",
                 joinColumns = {@JoinColumn(name = "id_user")},
                 inverseJoinColumns = {@JoinColumn(name = "id_project")})
@@ -93,6 +94,15 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL )
     private List<Feedback> feedbacks = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL )
+    private List<Chat> chats = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL )
+    private List<Message> receivedMessages = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL )
+    private List<Message> sentMessages = new ArrayList<>();;
         
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
