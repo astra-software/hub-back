@@ -1,0 +1,26 @@
+name: Deploy Docker image to Render
+on:
+  push:
+    branches:
+        - hom
+jobs:
+    deploy-to-hub:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v4
+            - name: Login on Hub
+              uses: docker/login-action@v3
+              with:
+                username: ${{ secrets.DOCKER_HUB_USERNAME }}
+                password: ${{ secrets.DOCKER_HUB_TOKEN }}
+            - name: Push image to Hub
+              run: |
+                docker build -t sntpwbl/hub_hom_api:latest .
+                docker push sntpwbl/hub_hom_api:latest
+            - name: Deploy to Render
+              run: |
+                curl -X POST "https://api.render.com/v1/services/srv-cujbno8gph6c73bdurp0/deploys" \
+                -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+                -H "Content-Type: application/json" \
+                --data '{}'
