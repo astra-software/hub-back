@@ -41,7 +41,7 @@ jobs:
                 node-version: '16'  # Escolha a versão do Node.js que preferir
             - name: Install Railway CLI using npm
               run: |
-                npm install -g railway
+                npm install -g @railway/cli
             - name: Authenticate with Railway
               run: |
                 railway login --apiKey ${{ secrets.RAILWAY_API_KEY }}
