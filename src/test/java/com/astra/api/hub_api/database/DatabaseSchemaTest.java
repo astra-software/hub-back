@@ -198,6 +198,33 @@ public class DatabaseSchemaTest {
             assertTrue(rs.next(), "Tabela 'project_category_link' deveria existir.");
         }
     }
+    @Test
+    void testChatTableExists() throws Exception{
+        try (Connection connection = dataSource.getConnection();
+             Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(
+                     "SELECT table_name FROM information_schema.tables WHERE table_name = 'chat'")) {
+            assertTrue(rs.next(), "Tabela 'chat' deveria existir.");
+        }
+    }
+    @Test
+    void testMessageTableExists() throws Exception{
+        try (Connection connection = dataSource.getConnection();
+             Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(
+                     "SELECT table_name FROM information_schema.tables WHERE table_name = 'message'")) {
+            assertTrue(rs.next(), "Tabela 'message' deveria existir.");
+        }
+    }
+    @Test
+    void testLoggingTableExists() throws Exception{
+        try (Connection connection = dataSource.getConnection();
+             Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(
+                     "SELECT table_name FROM information_schema.tables WHERE table_name = 'event_logging'")) {
+            assertTrue(rs.next(), "Tabela 'event_logging' deveria existir.");
+        }
+    }
 
     
 
