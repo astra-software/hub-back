@@ -35,10 +35,13 @@ jobs:
         steps:
             - name: Checkout repo
               uses: actions/checkout@v4
-            - name: Install Railway CLI
+            - name: Install Node.js
+              uses: actions/setup-node@v3
+              with:
+                node-version: '16'  # Escolha a versão do Node.js que preferir
+            - name: Install Railway CLI using npm
               run: |
-                curl -fsSL https://github.com/railwayapp/cli/releases/download/v1.0.1/railway-linux-x64.tar.gz | tar -xz
-                sudo mv railway /usr/local/bin/railway
+                npm install -g railway
             - name: Authenticate with Railway
               run: |
                 railway login --apiKey ${{ secrets.RAILWAY_API_KEY }}
