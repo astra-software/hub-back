@@ -1,3 +1,29 @@
+# name: Deploy Docker image to Render
+# on:
+#   push:
+#     branches:
+#         - hom
+# jobs:
+#     deploy-to-hub:
+#         runs-on: ubuntu-latest
+#         steps:
+#             - name: Checkout repo
+#               uses: actions/checkout@v4
+#             - name: Login on Hub
+#               uses: docker/login-action@v3
+#               with:
+#                 username: ${{ secrets.DOCKER_HUB_USERNAME }}
+#                 password: ${{ secrets.DOCKER_HUB_TOKEN }}
+#             - name: Push image to Hub
+#               run: |
+#                 docker build -t sntpwbl/hub_hom_api:latest .
+#                 docker push sntpwbl/hub_hom_api:latest
+#             - name: Deploy to Render
+#               run: |
+#                 curl -X POST "https://api.render.com/v1/services/srv-cujbno8gph6c73bdurp0/deploys" \
+#                 -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+#                 -H "Content-Type: application/json" \
+#                 --data '{}'
 name: Deploy Docker image to Render
 on:
   push:
@@ -9,12 +35,23 @@ jobs:
         steps:
             - name: Checkout repo
               uses: actions/checkout@v4
-            - name: Login on Hub
+            - name: Install Railway CLI
+              run: |
+                curl -sSL https://railway.app/cli.sh | bash
+                export PATH="$PATH:$HOME/.railway/bin"
+            - name: Authenticate with Railway
+              run: |
+                railway login --apiKey ${{ secrets.RAILWAY_API_KEY }}
+            - name: Create Tunnel to Railway Database
+              run: |
+                railway link
+                railway run "psql ${{ secrets.POSTGRE_URL_HOM }}"
+            - name: Login on Docker Hub
               uses: docker/login-action@v3
               with:
                 username: ${{ secrets.DOCKER_HUB_USERNAME }}
                 password: ${{ secrets.DOCKER_HUB_TOKEN }}
-            - name: Push image to Hub
+            - name: Push image to Docker Hub
               run: |
                 docker build -t sntpwbl/hub_hom_api:latest .
                 docker push sntpwbl/hub_hom_api:latest
@@ -24,3 +61,8 @@ jobs:
                 -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
                 -H "Content-Type: application/json" \
                 --data '{}'
+            - name: Set Database Environment Variables
+              run: |
+                echo "RAILWAY_DATABASE_URL=${{ secrets.POSTGRE_URL_HOM }}" >> $GITHUB_ENV
+                echo "RAILWAY_DB_USER=${{ secrets.POSTGRE_USER_HOM }}" >> $GITHUB_ENV
+                echo "RAILWAY_DB_PASSWORD=${{ secrets.POSTGRE_PASSWORD_HOM }}" >> $GITHUB_ENV
