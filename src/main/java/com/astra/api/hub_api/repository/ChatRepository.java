@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.astra.api.hub_api.model.Chat;
 
 @Repository
-public interface ChatRepository extends JpaRepository<Chat, Long> {
+public interface ChatRepository extends JpaRepository<Chat, String> {
 
 }
