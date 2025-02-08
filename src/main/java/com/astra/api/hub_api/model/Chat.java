@@ -28,15 +28,15 @@ public class Chat {
   private String id;
 
   @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "user_sender_id")
+  @JoinColumn(name = "sender_id")
   private User senderUser;
 
   @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "user_recipient_id")
+  @JoinColumn(name = "recipient_id")
   private User recipientUser;
 
-  @Column(name = "is_blocked")
-  private boolean isBlocked = false;
+  @Column
+  private boolean blocked = false;
 
   @OneToMany(mappedBy = "chat", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
   private List<Message> messages = new ArrayList<>();

@@ -35,6 +35,19 @@ END $$;
 
 DO $$ 
 BEGIN 
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'EVENTLOGGINGDENOMINATOR') THEN
+        CREATE TYPE EVENTLOGGINGDENOMINATOR AS ENUM ('USER', 'PROJECT', 'ARTICLE', 'CHAT', 'FEEDBACK', 'DOCUMENTATION'); 
+    END IF;
+END $$;
+DO $$ 
+BEGIN 
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'READSTATUS') THEN
+        CREATE TYPE READSTATUS AS ENUM ('SENT', 'READ'); 
+    END IF;
+END $$;
+
+DO $$ 
+BEGIN 
     IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'FEEDBACKTYPE') THEN
         CREATE TYPE FEEDBACKTYPE AS ENUM ('POSITIVE', 'NEGATIVE'); 
     END IF;
@@ -151,4 +164,35 @@ CREATE TABLE IF NOT EXISTS documentation_page (
     "timestamp" DATE NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (topic_id) REFERENCES documentation_topic(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS chat (
+    id VARCHAR(255) PRIMARY KEY,
+    sender_id BIGINT NOT NULL,
+    recipient_id BIGINT NOT NULL,
+    blocked BOOLEAN NOT NULL,
+    FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (recipient_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS message(
+    id BIGSERIAL PRIMARY KEY,
+    chat_id VARCHAR(255) NOT NULL,
+    sender_id BIGINT NOT NULL,
+    recipient_id BIGINT NOT NULL,
+    content VARCHAR(240) NOT NULL,
+    read_status READSTATUS NOT NULL,
+    "timestamp" DATE NOT NULL,
+    FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (recipient_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS event_logging(
+    id BIGSERIAL PRIMARY KEY,
+    structure_id BIGINT NOT NULL,
+    user_id BIGINT NOT NULL,
+    logging_denominator EVENTLOGGINGDENOMINATOR NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    reason VARCHAR(255) NOT NULL,
+    "timestamp" DATE NOT NULL
 );

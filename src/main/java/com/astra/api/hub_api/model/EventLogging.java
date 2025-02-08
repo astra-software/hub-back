@@ -6,6 +6,8 @@ import com.astra.api.hub_api.emodel.EventLoggingDenominator;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,13 +27,14 @@ public class EventLogging {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column
+  @Column(name = "structure_id")
   private Long structuredId;
 
-  @Column
+  @Column(name = "user_id")
   private Long userId;
 
   @Column(name = "logging_denominator")
+  @Enumerated(EnumType.STRING)
   private EventLoggingDenominator loggingDenominator;
 
   @Column
