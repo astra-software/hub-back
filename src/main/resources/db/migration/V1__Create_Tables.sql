@@ -101,15 +101,15 @@ CREATE TABLE IF NOT EXISTS project_category_link (
 );
 CREATE TABLE IF NOT EXISTS user_favorite_articles (
     id_user BIGINT NOT NULL,
-    id_project BIGINT NOT NULL,
-    FOREIGN KEY(id_user) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY(id_project) REFERENCES project(id) ON DELETE CASCADE
-);
-CREATE TABLE IF NOT EXISTS user_favorite_projects (
-    id_user BIGINT NOT NULL,
     id_article BIGINT NOT NULL,
     FOREIGN KEY(id_user) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY(id_article) REFERENCES article(id) ON DELETE CASCADE
+);
+CREATE TABLE IF NOT EXISTS user_favorite_projects (
+    id_user BIGINT NOT NULL,
+    id_project BIGINT NOT NULL,
+    FOREIGN KEY(id_user) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY(id_project) REFERENCES project(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS feedback (
