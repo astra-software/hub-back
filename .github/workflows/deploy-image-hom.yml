@@ -6,31 +6,15 @@ on:
 jobs:
     deploy-to-hub:
         runs-on: ubuntu-latest
-        env:
-          RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_KEY }}
         steps:
             - name: Checkout repo
               uses: actions/checkout@v4
-            - name: Install Node.js
-              uses: actions/setup-node@v3
-              with:
-                node-version: '16'
-            - name: Install Railway CLI using npm
-              run: |
-                npm install -g @railway/cli
-            - name: Authenticate with Railway
-              run: |
-                railway login --browserless
-            - name: Create Tunnel to Railway Database
-              run: |
-                railway link
-                railway run "psql ${{ secrets.POSTGRE_URL_HOM }}"
-            - name: Login on Docker Hub
+            - name: Login on Hub
               uses: docker/login-action@v3
               with:
                 username: ${{ secrets.DOCKER_HUB_USERNAME }}
                 password: ${{ secrets.DOCKER_HUB_TOKEN }}
-            - name: Push image to Docker Hub
+            - name: Push image to Hub
               run: |
                 docker build -t sntpwbl/hub_hom_api:latest .
                 docker push sntpwbl/hub_hom_api:latest
@@ -40,8 +24,3 @@ jobs:
                 -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
                 -H "Content-Type: application/json" \
                 --data '{}'
-            - name: Set Database Environment Variables
-              run: |
-                echo "RAILWAY_DATABASE_URL=${{ secrets.POSTGRE_URL_HOM }}" >> $GITHUB_ENV
-                echo "RAILWAY_DB_USER=${{ secrets.POSTGRE_USER_HOM }}" >> $GITHUB_ENV
-                echo "RAILWAY_DB_PASSWORD=${{ secrets.POSTGRE_PASSWORD_HOM }}" >> $GITHUB_ENV
