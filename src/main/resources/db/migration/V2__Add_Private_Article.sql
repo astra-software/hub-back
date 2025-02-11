@@ -1,0 +1,1 @@
+ALTER TABLE article ADD is_private BOOLEAN NOT NULL;
