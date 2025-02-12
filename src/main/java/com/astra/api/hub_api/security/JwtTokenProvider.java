@@ -1,7 +1,5 @@
 package com.astra.api.hub_api.security;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.astra.api.hub_api.dto.TokenDto;
+import com.astra.api.hub_api.exception.InvalidJwtAuthenticationException;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
@@ -89,4 +88,15 @@ public class JwtTokenProvider {
     }
 
     //to-do: adicionar método pra validar o token
+    public boolean validateToken(String token) throws InvalidJwtAuthenticationException {
+        DecodedJWT decodedToken = decodeToken(token);
+        try {
+            if(decodedToken.getExpiresAt().before(new Date())){
+                throw new InvalidJwtAuthenticationException("Expired token.");
+            }
+            return true;
+        } catch (InvalidJwtAuthenticationException e) {
+            return false;
+        }
+    }
 }
